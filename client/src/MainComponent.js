@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import './MainComponent.css';
+import WeatherPanel from './WeatherPanel';
 
 const MainComponent = () => {
     const [zipCodes, setZipCodes] = useState([])
@@ -14,7 +15,7 @@ const MainComponent = () => {
 
     const saveZipCode = useCallback(async (event) => {
         event.preventDefault();
-        
+
         await axios.post('/api/zipcodes', {
             zipCode
         })
@@ -25,20 +26,22 @@ const MainComponent = () => {
 
     useEffect(() => {
         getAllZipCodes();
-    }, []);
+    }, [getAllZipCodes]);
 
     return (
         <div>
             <button onClick={getAllZipCodes}>Get all Values</button><br></br>
             <form className='form' onSubmit={saveZipCode}>
                 <label>Zip Code: </label>
-                <input value={zipCode} onChange={((event) => {setZipCode(event.target.value)})}></input>
+                <input value={zipCode} onChange={((event) => { setZipCode(event.target.value) })}></input>
                 <button>Submit</button>
             </form>
 
             <span className='title'>Weather by ZipCode</span>
             <div className="values">
-                {zipCodes.map(value => <div className="values">{value}</div>)}
+                {zipCodes.map((zipCode, index) => (
+                    <WeatherPanel key={index} zipCode={zipCode} />
+                ))}
             </div>
         </div>
     )

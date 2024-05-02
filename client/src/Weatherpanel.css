@@ -1,0 +1,11 @@
+.weather-panel {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px;
+    width: 200px;
+}
+
+.weather-info {
+    margin-top: 10px;
+}
