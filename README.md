@@ -1,6 +1,12 @@
 # WeatherApp
-Uses Tomorrow.io weather API to look up and render basic weather data per zipcode. Zipcodes are saved in Postgres db, fetched via `weatherapp/server/`, and rendered as an interactable list via React `weatherapp/client/`.
+[Tomorrow.io Weather API](https://docs.tomorrow.io/reference/weather-forecast) to look up and render basic weather data per zipcode. 
 
+Zipcodes are 
+- saved in Postgres DB
+- fetched via `weatherapp/server/`
+- rendered as an interactable list via React `weatherapp/client/`.
+
+<img width="1102" alt="image" src="https://github.com/Snooder/WeatherApp/assets/6718356/b8467d7d-b992-4878-9475-fdb4998377df">
 
 # Instructions (Builds and Runs app in Docker Desktop)
 `docker-compose up --build`
