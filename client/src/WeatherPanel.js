@@ -12,7 +12,7 @@ const WeatherPanel = ({zipCode}) => {
         const fetchWeatherDataByZip = async (zipCode) => {
             try {
                 isFetchingGlobal = true;
-                const response = await fetch(`https://api.tomorrow.io/v4/weather/realtime?location=${zipCode} US&units=imperial&apikey=PKSj8aUrx3ExsJ1TaqSrvtrYdxGkjYKV`);
+                const response = await fetch(`https://api.tomorrow.io/v4/weather/realtime?location=${zipCode} US&units=imperial&apikey=${process.env.REACT_APP_WEATHER_API_KEY}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch weather data');
                 }
