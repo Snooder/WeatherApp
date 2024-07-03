@@ -10,14 +10,16 @@ services:
       - client
     restart: always
     build:
-      dockerfile: Dockerfile.dev
       context: ./nginx
+      dockerfile: Dockerfile.dev
     ports:
       - "3050:80"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
   api:
     build:
+      context: './server'
       dockerfile: Dockerfile.dev
-      context:  './server'
     volumes:
       - /app/node_modules
       - ./server:/app
@@ -30,8 +32,8 @@ services:
   client:
     stdin_open: true
     build:
-      dockerfile: Dockerfile.dev
       context: ./client
+      dockerfile: Dockerfile.dev
     volumes:
       - /app/node_modules
       - ./client:/app
