@@ -1,7 +1,28 @@
+import { Card, CardContent, Typography } from '@mui/material';
 import './WeatherPanel.css';
 import React, { useEffect, useState } from 'react';
+import makeStyles from '@mui/styles/makeStyles';
+
+
+const useStyles = makeStyles({
+    card: {
+        borderRadius: 15, // Rounded corners
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Elevation
+        padding: 20,
+        maxWidth: 400,
+        margin: '20px auto'
+    },
+    title: {
+        fontSize: 20,
+        marginBottom: 15,
+    },
+    content: {
+        fontSize: 16,
+    },
+});
 
 const WeatherPanel = ({ zipCode }) => {
+    const classes = useStyles();
     const [weatherAPI, setWeatherAPI] = useState({})
     const [loading, setLoading] = useState(true);
     let isFetchingGlobal = false;
@@ -51,13 +72,19 @@ const WeatherPanel = ({ zipCode }) => {
     const temperature = weatherAPI?.data?.values?.temperature;
     const precipitation = weatherAPI?.data?.values?.precipitationProbability;
     return (
-        <div className="weather-panel">
-            <h2>{weatherLoc} - {zipCode}</h2>
-            <div className="weather-info">
-                <p>Temperature: {temperature}°F</p>
-                <p>Precipitation Probability (%): {precipitation}</p>
-            </div>
-        </div>
+        <Card className={classes.card}>
+        <CardContent>
+            <Typography className={classes.title} color="textSecondary" gutterBottom>
+                {weatherLoc} - {zipCode}
+            </Typography>
+            <Typography className={classes.content} color="textPrimary">
+                Temperature: {temperature}°F
+            </Typography>
+            <Typography className={classes.content} color="textPrimary">
+                Precipitation Probability: {precipitation}%
+            </Typography>
+        </CardContent>
+    </Card>
     );
 };
 

@@ -1,0 +1,27 @@
+.NavBar {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #f8f9fa;
+  }
+  
+  .logo {
+    flex: 1; /* This will take 1/4th of the space */
+  }
+  
+  .navLinks {
+    flex: 3; /* This will take 3/4th of the space */
+    display: flex;
+    justify-content: flex-end; /* Align links to the right */
+  }
+  
+  .navLinks a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .navLinks a:hover {
+    text-decoration: underline;
+  }
+  
