@@ -11,6 +11,8 @@ Zipcodes are
 # Instructions (Builds and Runs app in Docker Desktop)
 `docker-compose up --build`
 
+# Removes Docker images
+`docker-compose down -V`
 
 # Debug Instructions - Server (Expressjs) 
 `cd weatherapp/server/`
