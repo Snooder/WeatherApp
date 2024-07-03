@@ -6,7 +6,7 @@ Zipcodes are
 - fetched via `weatherapp/server/`
 - rendered as an interactable list via React `weatherapp/client/`.
 
-<img width="1102" alt="image" src="https://github.com/Snooder/WeatherApp/assets/6718356/b8467d7d-b992-4878-9475-fdb4998377df">
+![image](https://github.com/Snooder/WeatherApp/assets/6718356/d2462ecb-becf-4e2e-bdf0-22fbef965370)
 
 # Instructions (Builds and Runs app in Docker Desktop)
 `docker-compose up --build`
