@@ -8,6 +8,8 @@ const WeatherBackdrop = () => {
             <div className="cloud"></div>
             <div className="rain"></div>
             <div className="rain"></div>
+            <div className="rain"></div>
+            <div className="rain"></div>
         </div>
     );
 };

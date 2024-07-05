@@ -35,6 +35,20 @@
     left: 60%;
 }
 
+.cloud:nth-child(2) {
+    width: 150px;
+    height: 45px;
+    top: 40%;
+    left: 60%;
+}
+
+.cloud:nth-child(2) {
+    width: 150px;
+    height: 45px;
+    top: 40%;
+    left: 60%;
+}
+
 .rain {
     position: absolute;
     background: blue;

@@ -2,11 +2,10 @@ import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import './MainComponent.css';
 import WeatherPanel from './WeatherPanel';
-import { TextField, Button, Typography, Container, Box } from '@mui/material';
+import { TextField, Button, Typography, Container, Box, Grid } from '@mui/material';
 
 const MainComponent = () => {
     const [zipCodes, setZipCodes] = useState([]);
-
     const [zipCode, setZipCode] = useState('');
 
     const getAllZipCodes = useCallback(async () => {
@@ -31,32 +30,37 @@ const MainComponent = () => {
     }, [getAllZipCodes]);
 
     return (
-        <Container maxWidth="sm">
+        <Container maxWidth="md">
             <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" mt={4}>
                 <Button variant="contained" color="primary" onClick={getAllZipCodes}>
                     Get all Values
                 </Button>
-                <Box component="form" onSubmit={saveZipCode} mt={2} display="flex" flexDirection="column" alignItems="center">
+                <Box display="flex" alignItems="center" mt={2} component="form" onSubmit={saveZipCode}>
+                    <Typography variant="h6" component="span" mr={2}>
+                        Where do you want to see the weather for?
+                    </Typography>
                     <TextField
                         label="Zip Code"
                         value={zipCode}
                         onChange={(event) => setZipCode(event.target.value)}
                         variant="outlined"
                         margin="normal"
-                        fullWidth
+                        size="small"
                     />
-                    <Button type="submit" variant="contained" color="secondary">
+                    <Button type="submit" variant="contained" color="secondary" style={{ marginLeft: '8px' }}>
                         Submit
                     </Button>
                 </Box>
                 <Typography variant="h4" component="h2" mt={4}>
                     Weather by ZipCode
                 </Typography>
-                <Box className="values" mt={2}>
+                <Grid container spacing={2} className="values" mt={2}>
                     {zipCodes.map((zipCode, index) => (
-                        <WeatherPanel key={index} zipCode={zipCode} />
+                        <Grid item xs={12} sm={6} md={4} key={index}>
+                            <WeatherPanel zipCode={zipCode} />
+                        </Grid>
                     ))}
-                </Box>
+                </Grid>
             </Box>
         </Container>
     );
