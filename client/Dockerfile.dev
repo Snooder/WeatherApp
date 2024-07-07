@@ -6,7 +6,7 @@
 # CMD [ "npm", "run", "start" ]
 
 # Use the official Node.js image with Alpine Linux.
-FROM node:14.14.0-alpine
+FROM node:14.15.0-alpine
 
 # Set the working directory.
 WORKDIR /app
