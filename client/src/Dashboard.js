@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
-import './MainComponent.css';
+import './Dashboard.css';
 import WeatherPanel from './WeatherPanel';
 import { TextField, Button, Typography, Container, Box, Grid } from '@mui/material';
 
-const MainComponent = () => {
+const Dashboard = () => {
     const [zipCodes, setZipCodes] = useState([]);
     const [zipCode, setZipCode] = useState('');
 
@@ -66,4 +66,4 @@ const MainComponent = () => {
     );
 };
 
-export default MainComponent;
+export default Dashboard;
