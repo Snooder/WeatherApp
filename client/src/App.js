@@ -5,7 +5,7 @@ import { Fragment } from 'react';
 import NavBar from './NavBar';
 import WeatherBackdrop from './WeatherBackdrop';
 import './WeatherBackdrop.css';
-import { auth, app } from './firebaseConfig';
+import { auth, app, analytics } from './firebaseConfig';
 
 function App() {
   return (
