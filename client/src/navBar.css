@@ -1,27 +1,60 @@
 .NavBar {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    background-color: #f8f9fa;
-  }
-  
-  .logo {
-    flex: 1; /* This will take 1/4th of the space */
-  }
-  
-  .navLinks {
-    flex: 3; /* This will take 3/4th of the space */
-    display: flex;
-    justify-content: flex-end; /* Align links to the right */
-  }
-  
-  .navLinks a {
-    margin-left: 20px;
-    text-decoration: none;
-    color: #333;
-  }
-  
-  .navLinks a:hover {
-    text-decoration: underline;
-  }
-  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: rgba(159, 172, 244, 0.15);
+  /* Low opacity background */
+  color: white;
+  height: 60px;
+  /* Adjust height as needed */
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.iconButton {
+  background-color: rgba(255, 255, 255, 0.8);
+  /* Light white background */
+  border-radius: 50%;
+  /* Make it circular */
+  padding: 5px;
+  /* Adjust padding as needed */
+  margin: 0 5px;
+  /* Adjust margin for spacing */
+  transition: background-color 0.3s ease;
+  /* Smooth transition */
+}
+
+.iconButton:hover {
+  /*background-color: rgba(255, 255, 255, 1);*/
+  /* Darker on hover */
+}
+
+.iconButton svg {
+  color: #f1f1f1;
+  /* Icon color to match the theme */
+}
+
+.logoLink {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.navLinks {
+  display: flex;
+  gap: 10px;
+}
+
+.MuiButton-root {
+  color: white;
+  text-transform: none;
+}
+
+.MuiIconButton-root {
+  color: white;
+}
