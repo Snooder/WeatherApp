@@ -8,13 +8,16 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchIcon from '@mui/icons-material/Search';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import SearchModal from './SearchModal';
 import FavoritesModal from './FavoritesModal';
+import axios from 'axios';
 
 const NavBar = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const [isSearchOpen, setSearchOpen] = useState(false);
     const [isFavoritesOpen, setFavoritesOpen] = useState(false);
+    const [destination, setDestination] = useState('');
 
     const handleMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -29,6 +32,17 @@ const NavBar = () => {
 
     const handleFavoritesOpen = () => setFavoritesOpen(true);
     const handleFavoritesClose = () => setFavoritesOpen(false);
+
+    const handleSubmit = async () => {
+        try {
+            await axios.post('/api/zipcodes', { zipCode: destination });
+            setDestination('');
+            alert('Destination submitted successfully');
+        } catch (error) {
+            console.error('Error submitting destination:', error);
+            alert('Failed to submit destination');
+        }
+    };
 
     return (
         <div>
@@ -55,14 +69,16 @@ const NavBar = () => {
                     </Typography>
                 </div>
 
-                <Box flexGrow={1} display="flex" justifyContent="center" alignItems="center" mx={2}>
+                <Box flexGrow={2} display="flex" justifyContent="center" alignItems="center" mx={2}>
                     <TextField
                         variant="outlined"
-                        placeholder="Let's See Where the Rain Goes"
+                        placeholder="Select any destination (Cities, Countries, Continents)"
+                        value={destination}
+                        onChange={(e) => setDestination(e.target.value)}
                         className="searchInput"
                         sx={{
-                            width: '90%',
-                            maxWidth: '600px',
+                            width: '80%', // Increased width to ensure placeholder is fully visible
+                            maxWidth: '700px', // Adjusted max width
                             '& .MuiOutlinedInput-root': {
                                 borderRadius: '50px',
                                 backgroundColor: 'rgba(255, 255, 255, 0.8)',
@@ -83,6 +99,25 @@ const NavBar = () => {
                             }
                         }}
                     />
+                    <IconButton
+                        onClick={handleSubmit}
+                        sx={{
+                            marginLeft: '10px',
+                            borderRadius: '50%',
+                            padding: '10px',
+                            backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                            boxShadow: '0 0 5px rgba(255, 255, 255, 0.8)',
+                            '&:hover': {
+                                boxShadow: '0 0 10px rgba(255, 255, 255, 1)',
+                                backgroundColor: 'rgba(255, 255, 255, 1)',
+                            },
+                            '&.Mui-focused': {
+                                boxShadow: '0 0 10px rgba(255, 255, 255, 1)',
+                            },
+                        }}
+                    >
+                        <ArrowForwardIcon sx={{ color: 'black' }} />
+                    </IconButton>
                 </Box>
 
                 <nav className="navLinks">

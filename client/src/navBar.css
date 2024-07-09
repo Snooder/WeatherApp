@@ -65,6 +65,18 @@
 
 .searchInput {
   width: 90%;
-  max-width: 600px;
-  /* Adjust max width as needed */
+  /* Increased width */
+  max-width: 1000px;
+  /* Adjusted max width */
+  border-radius: 50px;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding-left: 15px;
+  padding-right: 15px;
+  border: none;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+.searchInput:focus {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+  outline: none;
 }
