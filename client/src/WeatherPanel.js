@@ -1,29 +1,36 @@
+import React, { useEffect, useState } from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
 import './WeatherPanel.css';
-import React, { useEffect, useState } from 'react';
-import makeStyles from '@mui/styles/makeStyles';
+import { styled } from '@mui/system';
 
-
-const useStyles = makeStyles({
+const useStyles = styled({
     card: {
-        borderRadius: 15, // Rounded corners
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Elevation
+        borderRadius: 15,
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
         padding: 20,
-        maxWidth: 400,
-        margin: '20px auto'
+        width: 400, // Increased width for more content space
+        margin: '20px auto',
+        position: 'relative',
+        backgroundColor: 'rgba(255, 255, 255, 0.8)', // Slight white background with low opacity
     },
     title: {
         fontSize: 20,
         marginBottom: 15,
+        wordWrap: 'break-word',
+        whiteSpace: 'normal',
+        color: 'black', // Set text color to black for better readability on white background
     },
     content: {
         fontSize: 16,
+        wordWrap: 'break-word',
+        whiteSpace: 'normal',
+        color: 'black', // Set text color to black for better readability on white background
     },
 });
 
 const WeatherPanel = ({ zipCode }) => {
     const classes = useStyles();
-    const [weatherAPI, setWeatherAPI] = useState({})
+    const [weatherAPI, setWeatherAPI] = useState({});
     const [loading, setLoading] = useState(true);
     let isFetchingGlobal = false;
 
@@ -67,24 +74,24 @@ const WeatherPanel = ({ zipCode }) => {
         return <div>Error fetching weather data on {zipCode}</div>;
     }
 
-    // console.log(weatherAPI)
     const weatherLoc = weatherAPI?.location?.name;
     const temperature = weatherAPI?.data?.values?.temperature;
     const precipitation = weatherAPI?.data?.values?.precipitationProbability;
+
     return (
         <Card className={classes.card}>
-        <CardContent>
-            <Typography className={classes.title} color="textSecondary" gutterBottom>
-                {weatherLoc} - {zipCode}
-            </Typography>
-            <Typography className={classes.content} color="textPrimary">
-                Temperature: {temperature}°F
-            </Typography>
-            <Typography className={classes.content} color="textPrimary">
-                Precipitation Probability: {precipitation}%
-            </Typography>
-        </CardContent>
-    </Card>
+            <CardContent>
+                <Typography className={classes.title} color="textSecondary" gutterBottom>
+                    {weatherLoc} - {zipCode}
+                </Typography>
+                <Typography className={classes.content} color="textPrimary">
+                    Temperature: {temperature}°F
+                </Typography>
+                <Typography className={classes.content} color="textPrimary">
+                    Precipitation Probability: {precipitation}%
+                </Typography>
+            </CardContent>
+        </Card>
     );
 };
 

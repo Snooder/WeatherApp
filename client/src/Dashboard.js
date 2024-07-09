@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import './Dashboard.css';
 import WeatherPanel from './WeatherPanel';
-import { TextField, Button, Typography, Container, Box, Grid } from '@mui/material';
+import { TextField, Button, Typography, Container, Box } from '@mui/material';
 
 const Dashboard = () => {
     const [zipCodes, setZipCodes] = useState([]);
@@ -17,9 +17,7 @@ const Dashboard = () => {
     const saveZipCode = useCallback(async (event) => {
         event.preventDefault();
 
-        await axios.post('/api/zipcodes', {
-            zipCode
-        });
+        await axios.post('/api/zipcodes', { zipCode });
 
         setZipCode('');
         getAllZipCodes();
@@ -30,7 +28,7 @@ const Dashboard = () => {
     }, [getAllZipCodes]);
 
     return (
-        <Container maxWidth="md">
+        <Container maxWidth="lg">
             <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" mt={4}>
                 <Button variant="contained" color="primary" onClick={getAllZipCodes}>
                     Get all Values
@@ -46,6 +44,7 @@ const Dashboard = () => {
                         variant="outlined"
                         margin="normal"
                         size="small"
+                        style={{ color: 'white', borderColor: 'white' }} // Set input text and border color to white
                     />
                     <Button type="submit" variant="contained" color="secondary" style={{ marginLeft: '8px' }}>
                         Submit
@@ -54,13 +53,15 @@ const Dashboard = () => {
                 <Typography variant="h4" component="h2" mt={4}>
                     Weather by ZipCode
                 </Typography>
-                <Grid container spacing={2} className="values" mt={2}>
-                    {zipCodes.map((zipCode, index) => (
-                        <Grid item xs={12} sm={6} md={4} key={index}>
-                            <WeatherPanel zipCode={zipCode} />
-                        </Grid>
-                    ))}
-                </Grid>
+                <div className="panning-container">
+                    <div className="panning-content">
+                        {zipCodes.map((zipCode, index) => (
+                            <div key={index}>
+                                <WeatherPanel zipCode={zipCode} />
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </Box>
         </Container>
     );

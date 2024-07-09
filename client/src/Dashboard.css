@@ -10,3 +10,33 @@
     margin-top: 20px;
 }
 
+@keyframes pan {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.panning-container {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100vw;
+    /* Full width of the viewport */
+    position: relative;
+}
+
+.panning-content {
+    display: inline-flex;
+    animation: pan 60s linear infinite;
+    /* Slower animation */
+    width: 100%;
+}
+
+.panning-content>div {
+    flex: 0 0 auto;
+    /* Prevent flex children from shrinking or growing */
+    margin-right: 16px;
+}

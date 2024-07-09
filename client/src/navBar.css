@@ -1,3 +1,5 @@
+/* navBar.css */
+
 .NavBar {
   display: flex;
   align-items: center;
@@ -29,8 +31,8 @@
 }
 
 .iconButton:hover {
-  /*background-color: rgba(255, 255, 255, 1);*/
-  /* Darker on hover */
+  background-color: rgba(255, 255, 255, 1);
+  /* Glowing white on hover */
 }
 
 .iconButton svg {
@@ -43,11 +45,13 @@
   color: white;
   font-weight: bold;
   margin-left: 10px;
+  font-size: 24px;
 }
 
 .navLinks {
   display: flex;
   gap: 10px;
+  align-items: center;
 }
 
 .MuiButton-root {
@@ -57,4 +61,10 @@
 
 .MuiIconButton-root {
   color: white;
+}
+
+.searchInput {
+  width: 90%;
+  max-width: 600px;
+  /* Adjust max width as needed */
 }

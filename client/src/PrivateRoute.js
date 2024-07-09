@@ -1,19 +1,22 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './firebaseConfig';
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const PrivateRoute = ({ children }) => {
     const [user, loading, error] = useAuthState(auth);
 
-    return (
-        <Route
-            {...rest}
-            render={(props) =>
-                user ? <Component {...props} /> : <Redirect to="/login" />
-            }
-        />
-    );
+    if (loading) {
+        // Optionally show a loading spinner or some placeholder here
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        // Optionally handle the error state here
+        return <div>Error: {error.message}</div>;
+    }
+
+    return user ? children : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;
