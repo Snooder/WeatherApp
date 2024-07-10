@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, TextField, Button, Typography, Box, IconButton } from '@mui/material';
-import { Google as GoogleIcon } from '@mui/icons-material';
+import GoogleIcon from '@mui/icons-material/Google';
 import './AuthComponent.css';
 
 const AuthComponent = () => {
@@ -10,24 +10,18 @@ const AuthComponent = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const handleSignUp = () => {
-        // Handle sign up logic here
         if (password !== confirmPassword) {
             alert('Passwords do not match');
             return;
         }
-        // Proceed with sign-up
     };
 
-    const handleSignIn = () => {
-        // Handle sign in logic here
-    };
+    const handleSignIn = () => { };
 
-    const handleGoogleSignIn = () => {
-        // Handle Google sign in logic here
-    };
+    const handleGoogleSignIn = () => { };
 
     return (
-        <Container className="container">
+        <Container className="auth-container">
             <Typography variant="h5" align="center" gutterBottom>
                 {isSignUp ? 'Sign Up' : 'Sign In'}
             </Typography>
@@ -88,7 +82,7 @@ const AuthComponent = () => {
                         color="primary"
                         onClick={handleSignIn}
                         className="button"
-                        style={{ display: isSignUp ? 'none' : 'block' }}
+                        style={{ display: isSignUp ? 'none' : 'block', margin: '10px' }}
                     >
                         Sign In
                     </Button>
@@ -98,8 +92,9 @@ const AuthComponent = () => {
                         color="secondary"
                         onClick={() => setIsSignUp(!isSignUp)}
                         className="button"
+                        style={{ margin: '10px' }}
                     >
-                        {isSignUp ? 'Sign In' : 'Sign Up'}
+                        {isSignUp ? 'Back to Sign In' : 'Sign Up'}
                     </Button>
                     <Button
                         type="button"
@@ -107,14 +102,31 @@ const AuthComponent = () => {
                         color="primary"
                         onClick={handleSignUp}
                         className="button"
-                        style={{ display: isSignUp ? 'block' : 'none' }}
+                        style={{ display: isSignUp ? 'block' : 'none', margin: '10px' }}
                     >
                         Confirm Sign Up
                     </Button>
                 </div>
-                <div className="google-button">
-                    <IconButton onClick={handleGoogleSignIn}>
-                        <GoogleIcon className="google-icon" />
+                <div className="google-button" style={{ display: 'flex', alignItems: 'center' }}>
+                    <Typography variant="body1" style={{ marginRight: '10px', color: 'black', fontSize: '1.25rem' }}>
+                        Sign in with:
+                    </Typography>
+                    <IconButton
+                        onClick={handleGoogleSignIn}
+                        sx={{
+                            padding: '10px',
+                            backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                            boxShadow: '0 0 5px rgba(255, 255, 255, 0.8)',
+                            '&:hover': {
+                                boxShadow: '0 0 10px rgba(255, 255, 255, 1)',
+                                backgroundColor: 'rgba(255, 255, 255, 1)',
+                            },
+                            '&.Mui-focused': {
+                                boxShadow: '0 0 10px rgba(255, 255, 255, 1)',
+                            },
+                        }}
+                    >
+                        <GoogleIcon sx={{ fontSize: 30, color: 'black' }} />
                     </IconButton>
                 </div>
             </Box>

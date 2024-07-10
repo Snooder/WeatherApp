@@ -1,0 +1,110 @@
+.NavBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: rgba(63, 81, 181, 0.1);
+  /* Low opacity background */
+  color: white;
+  height: 80px;
+  /* Adjust height as needed */
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+
+.logoLink {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  margin-left: -55px !important;
+  /* Adjusted margin between home button and logo */
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    3px 1px 0 #000;
+  /* Adding black stroke around the text */
+}
+
+.rainbowImage {
+  height: 80px;
+}
+
+.searchBarContainer {
+  flex-grow: 2;
+  /* Ensure the search bar takes more space */
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  /* Adding margin to the left */
+}
+
+.searchInput {
+  flex-grow: 1;
+  width: 90%;
+  /* Adjust width to take 90% of the available space */
+}
+
+.MuiButton-root {
+  color: white;
+  text-transform: none;
+}
+
+.MuiIconButton-root {
+  color: white;
+}
+
+@keyframes glowBackground {
+  0% {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+
+  50% {
+    background-color: rgba(255, 255, 0, 0.8);
+    /* Light yellow */
+  }
+
+  100% {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+.submit-button.glowing {
+  animation: glowBackground 1.5s infinite;
+}
+
+.navButton {
+  color: white;
+  margin: 0 10px;
+  position: relative;
+}
+
+.navButton.active {
+  box-shadow: 0 0 15px rgba(255, 255, 0, 0.8);
+  border-radius: 50%;
+}
+
+.navButton:hover {
+  box-shadow: 0 0 15px rgba(255, 255, 0, 0.8);
+}
+
+.submit-button.glowing {
+  animation: glowBackground 1.5s infinite;
+}
+
+@keyframes glowBackground {
+  0% {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+
+  50% {
+    background-color: rgba(255, 255, 0, 0.8);
+  }
+
+  100% {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+}

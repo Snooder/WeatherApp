@@ -1,4 +1,4 @@
-import { auth, app, analytics } from './firebaseConfig';
+import { auth, app, analytics } from '../../utils/firebaseConfig';
 import { signInWithEmailAndPassword } from "@firebase/auth";
 
 const Login = (email, password) => {

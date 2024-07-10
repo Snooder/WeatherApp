@@ -1,14 +1,15 @@
-.container {
-    max-width: 400px;
+.auth-container {
+    max-width: 33.33% !important;
+    width: 100%;
     margin: 80px auto;
-    /* Added margin to move the container further from the navbar */
     padding: 2rem;
     background-color: rgba(255, 255, 255, 0.3);
-    /* Slight white background with low opacity */
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     color: black;
-    /* Set text color to black */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .button-container {
@@ -19,48 +20,34 @@
 
 .button {
     flex: 1;
-    margin: 0 0.5rem;
-    /* Added margin to the buttons */
+    margin: 0 10px;
     padding: 0.5rem 1rem;
-    /* Added padding to the buttons */
     border: 1px solid white;
-    /* Set button outline to white */
 }
 
 .google-button {
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-top: 1rem;
 }
 
-.google-icon {
-    font-size: 2rem;
-    color: white;
-    /* Set Google icon color to white */
-}
-
-/* Add outline styles for the inputs and text fields */
 .input-outline {
     color: black;
-    /* Set input text color to black */
 }
 
 input::placeholder,
 .MuiInputLabel-root {
     color: black;
-    /* Set placeholder and label text color to black */
 }
 
 input:focus,
 .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
     border-color: white !important;
-    /* Set focus outline to white */
     outline: none;
     box-shadow: none;
-    /* Remove active highlight */
 }
 
-/* Ensure the Material-UI box and label do not overlap with the outline */
 .MuiFormControl-root {
     margin-bottom: 1rem;
 }

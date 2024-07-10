@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword } from "@firebase/auth";
-import { auth, app, analytics } from './firebaseConfig';
+import { auth, app, analytics } from '../../utils/firebaseConfig';
 
 const SignUp = (email, password) => {
     createUserWithEmailAndPassword(auth, email, password)

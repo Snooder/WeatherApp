@@ -1,23 +1,24 @@
-import React, { useState } from "react";
-import './navBar.css';
-import { Link } from "react-router-dom";
-import { Typography, IconButton, Menu, MenuItem, Box, TextField } from "@mui/material";
+import React, { useState } from 'react';
+import { Box, IconButton, TextField } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import HomeIcon from '@mui/icons-material/Home';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import SearchIcon from '@mui/icons-material/Search';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import SearchModal from './SearchModal';
-import FavoritesModal from './FavoritesModal';
+import './NavBar.css';
+import NavLogo from './NavLogo';
+import NavMenu from './NavMenu';
+import NavIconButton from './NavIconButton';
+import SearchModal from '../modals/SearchModal';
+import FavoritesModal from '../modals/FavoritesModal';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 const NavBar = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const [isSearchOpen, setSearchOpen] = useState(false);
     const [isFavoritesOpen, setFavoritesOpen] = useState(false);
     const [destination, setDestination] = useState('');
+    const [isTextFieldFocused, setIsTextFieldFocused] = useState(false);
+
+    const location = useLocation();
 
     const handleMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -31,7 +32,7 @@ const NavBar = () => {
     const handleSearchClose = () => setSearchOpen(false);
 
     const handleFavoritesOpen = () => setFavoritesOpen(true);
-    const handleFavoritesClose = () => setFavoritesOpen(false);
+    const handleFavoritesClose = () => setFavoritesClose(false);
 
     const handleSubmit = async () => {
         try {
@@ -44,41 +45,43 @@ const NavBar = () => {
         }
     };
 
+    const handleTextFieldFocus = () => {
+        setIsTextFieldFocused(true);
+    };
+
+    const handleTextFieldBlur = () => {
+        if (!destination) {
+            setIsTextFieldFocused(false);
+        }
+    };
+
     return (
         <div>
-            <header className='NavBar'>
-                <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleMenuOpen} className="iconButton">
-                    <MenuIcon sx={{ fontSize: 40 }} />
+            <header className="NavBar">
+                <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleMenuOpen} className="iconButton navButton" style={{ marginLeft: '10px', marginRight: '10px' }}>
+                    <MenuIcon sx={{ fontSize: 40, color: 'white' }} />
                 </IconButton>
-                <Menu
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={handleMenuClose}
-                >
-                    <MenuItem component={Link} to="/dashboard" onClick={handleMenuClose}>Home</MenuItem>
-                    <MenuItem component={Link} to="/otherpage" onClick={handleMenuClose}>Other Page</MenuItem>
-                </Menu>
+                <NavMenu anchorEl={anchorEl} handleMenuClose={handleMenuClose} />
 
-                <div className="logo">
-                    <IconButton component={Link} to="/" color="inherit" className="iconButton">
-                        <HomeIcon sx={{ fontSize: 40 }} />
-                    </IconButton>
-                    <Typography variant="h4" component={Link} to="/" className="logoLink">
-                        WeatherOrNot
-                    </Typography>
+                <div className="logoContainer">
+                    <img src={`${process.env.PUBLIC_URL}/rainbow.png`} alt="Rainbow" className="rainbowImage" />
+                    <NavLogo />
                 </div>
 
-                <Box flexGrow={2} display="flex" justifyContent="center" alignItems="center" mx={2}>
+                <Box display="flex" justifyContent="center" alignItems="center" className="searchBarContainer">
                     <TextField
                         variant="outlined"
                         placeholder="Select any destination (Cities, Countries, Continents)"
                         value={destination}
                         onChange={(e) => setDestination(e.target.value)}
+                        onFocus={handleTextFieldFocus}
+                        onBlur={handleTextFieldBlur}
                         className="searchInput"
                         sx={{
-                            width: '80%', // Increased width to ensure placeholder is fully visible
-                            maxWidth: '700px', // Adjusted max width
+                            flexGrow: 1,
+                            width: '100%', // Adjust width to take 100% of the available space
+                            maxWidth: 'none',
+                            marginLeft: '10px', // Adding margin to the left
                             '& .MuiOutlinedInput-root': {
                                 borderRadius: '50px',
                                 backgroundColor: 'rgba(255, 255, 255, 0.8)',
@@ -101,6 +104,7 @@ const NavBar = () => {
                     />
                     <IconButton
                         onClick={handleSubmit}
+                        className={`submit-button ${isTextFieldFocused ? 'glowing' : ''}`}
                         sx={{
                             marginLeft: '10px',
                             borderRadius: '50%',
@@ -120,20 +124,7 @@ const NavBar = () => {
                     </IconButton>
                 </Box>
 
-                <nav className="navLinks">
-                    <IconButton component={Link} to="/calendar" color="inherit" className="iconButton">
-                        <CalendarMonthIcon sx={{ fontSize: 40 }} />
-                    </IconButton>
-                    <IconButton color="inherit" className="iconButton" onClick={handleSearchOpen}>
-                        <SearchIcon sx={{ fontSize: 40 }} />
-                    </IconButton>
-                    <IconButton color="inherit" className="iconButton" onClick={handleFavoritesOpen}>
-                        <FavoriteIcon sx={{ fontSize: 40 }} />
-                    </IconButton>
-                    <IconButton component={Link} to="/profile" color="inherit" className="iconButton">
-                        <AccountCircleIcon sx={{ fontSize: 40 }} />
-                    </IconButton>
-                </nav>
+                <NavIconButton handleSearchOpen={handleSearchOpen} handleFavoritesOpen={handleFavoritesOpen} location={location} />
             </header>
             <SearchModal open={isSearchOpen} onClose={handleSearchClose} />
             <FavoritesModal open={isFavoritesOpen} onClose={handleFavoritesClose} />

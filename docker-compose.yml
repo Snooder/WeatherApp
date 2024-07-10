@@ -1,8 +1,15 @@
+version: '3.7'
+
 services:
   postgres:
     image: 'postgres:latest'
     environment:
-      - POSTGRES_PASSWORD=postgres_password
+      POSTGRES_PASSWORD: postgres_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
   nginx:
     depends_on:
       - api
@@ -15,19 +22,23 @@ services:
       - "3050:80"
     volumes:
       - ./nginx:/etc/nginx/conf.d
+
   api:
     build:
-      context: './server'
+      context: ./server
       dockerfile: Dockerfile.dev
     volumes:
       - /app/node_modules
       - ./server:/app
     environment:
-      - PGUSER=postgres
-      - PGHOST=postgres
-      - PGDATABASE=postgres
-      - PGPASSWORD=postgres_password
-      - PGPORT=5432
+      PGUSER: postgres
+      PGHOST: postgres
+      PGDATABASE: postgres
+      PGPASSWORD: postgres_password
+      PGPORT: 5432
+    depends_on:
+      - postgres
+
   client:
     stdin_open: true
     build:
@@ -36,3 +47,8 @@ services:
     volumes:
       - /app/node_modules
       - ./client:/app
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:

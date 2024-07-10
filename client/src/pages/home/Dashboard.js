@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import './Dashboard.css';
-import WeatherPanel from './WeatherPanel';
+import WeatherPanel from '../../components/common/WeatherPanel';
 import { Container, Box, Grid } from '@mui/material';
 import axios from 'axios';
 
