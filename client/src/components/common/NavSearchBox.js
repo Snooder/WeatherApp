@@ -8,7 +8,7 @@ const NavSearchBox = ({ destination, setDestination, handleTextFieldFocus, handl
         <div className="searchBoxContainer">
             <TextField
                 variant="outlined"
-                placeholder="Select any destination (Cities, Countries, Continents)"
+                placeholder="Search for any destination (Cities, Countries, Continents)"
                 value={destination}
                 onChange={(e) => setDestination(e.target.value)}
                 onFocus={handleTextFieldFocus}

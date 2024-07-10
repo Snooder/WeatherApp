@@ -58,7 +58,14 @@ const NavBar = () => {
     return (
         <div>
             <header className="NavBar">
-                <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleMenuOpen} className="iconButton navButton" style={{ marginLeft: '10px', marginRight: '10px' }}>
+                <IconButton
+                    edge="start"
+                    color="inherit"
+                    aria-label="menu"
+                    onClick={handleMenuOpen}
+                    className={`iconButton navButton ${anchorEl ? 'active' : ''}`}
+                    style={{ marginLeft: '10px', marginRight: '10px' }}
+                >
                     <MenuIcon sx={{ fontSize: 40, color: 'white' }} />
                 </IconButton>
                 <NavMenu anchorEl={anchorEl} handleMenuClose={handleMenuClose} />
@@ -71,7 +78,7 @@ const NavBar = () => {
                 <Box display="flex" justifyContent="center" alignItems="center" className="searchBarContainer">
                     <TextField
                         variant="outlined"
-                        placeholder="Select any destination (Cities, Countries, Continents)"
+                        placeholder="Search for any destination (Cities, Countries, Continents)"
                         value={destination}
                         onChange={(e) => setDestination(e.target.value)}
                         onFocus={handleTextFieldFocus}

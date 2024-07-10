@@ -4,10 +4,8 @@
   justify-content: space-between;
   padding: 10px;
   background-color: rgba(63, 81, 181, 0.1);
-  /* Low opacity background */
   color: white;
   height: 80px;
-  /* Adjust height as needed */
 }
 
 .logoContainer {
@@ -20,13 +18,11 @@
   color: white;
   font-weight: bold;
   margin-left: -55px !important;
-  /* Adjusted margin between home button and logo */
   text-shadow:
     -1px -1px 0 #000,
     1px -1px 0 #000,
     -1px 1px 0 #000,
     3px 1px 0 #000;
-  /* Adding black stroke around the text */
 }
 
 .rainbowImage {
@@ -35,17 +31,14 @@
 
 .searchBarContainer {
   flex-grow: 2;
-  /* Ensure the search bar takes more space */
   display: flex;
   align-items: center;
   margin-left: 10px;
-  /* Adding margin to the left */
 }
 
 .searchInput {
   flex-grow: 1;
   width: 90%;
-  /* Adjust width to take 90% of the available space */
 }
 
 .MuiButton-root {
@@ -57,25 +50,6 @@
   color: white;
 }
 
-@keyframes glowBackground {
-  0% {
-    background-color: rgba(255, 255, 255, 0.8);
-  }
-
-  50% {
-    background-color: rgba(255, 255, 0, 0.8);
-    /* Light yellow */
-  }
-
-  100% {
-    background-color: rgba(255, 255, 255, 0.8);
-  }
-}
-
-.submit-button.glowing {
-  animation: glowBackground 1.5s infinite;
-}
-
 .navButton {
   color: white;
   margin: 0 10px;
@@ -83,16 +57,14 @@
 }
 
 .navButton.active {
-  box-shadow: 0 0 15px rgba(255, 255, 0, 0.8);
+  box-shadow: 0 0 15px rgba(255, 223, 0, 0.8);
+  /* Golden yellow glow */
   border-radius: 50%;
 }
 
 .navButton:hover {
-  box-shadow: 0 0 15px rgba(255, 255, 0, 0.8);
-}
-
-.submit-button.glowing {
-  animation: glowBackground 1.5s infinite;
+  box-shadow: 0 0 15px rgba(255, 223, 0, 0.8);
+  /* Golden yellow glow */
 }
 
 @keyframes glowBackground {
@@ -101,10 +73,15 @@
   }
 
   50% {
-    background-color: rgba(255, 255, 0, 0.8);
+    background-color: rgba(255, 223, 0, 0.8);
+    /* Golden yellow */
   }
 
   100% {
     background-color: rgba(255, 255, 255, 0.8);
   }
+}
+
+.submit-button.glowing {
+  animation: glowBackground 1.5s infinite;
 }
