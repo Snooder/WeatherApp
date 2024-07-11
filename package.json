@@ -6,6 +6,8 @@
     "@mui/lab": "^5.0.0-alpha.171",
     "@mui/material": "^5.15.21",
     "@mui/styles": "^5.15.21",
-    "date-fns": "^3.6.0"
+    "date-fns": "^3.6.0",
+    "react-globe.gl": "^2.27.2",
+    "three": "^0.166.1"
   }
 }

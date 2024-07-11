@@ -11,6 +11,7 @@ import PrivateRoute from './components/common/PrivateRoute';
 import NavBar from './components/common/NavBar';
 import WeatherBackdrop from './components/common/WeatherBackdrop';
 import Dashboard from './pages/home/Dashboard';
+import GlobePicker from './pages/globe/GlobePage';
 
 function App() {
   const [isNightMode, setIsNightMode] = useState(false);
@@ -34,6 +35,7 @@ function App() {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/calendar" element={<CalendarPage />} />
               <Route path="/howtohelp" element={<HowToHelp />} />
+              <Route path="/globe" element={<GlobePicker />} />
               <Route
                 path="/dashboard"
                 element={
