@@ -11,7 +11,7 @@ import FavoritesModal from '../modals/FavoritesModal';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 
-const NavBar = () => {
+const NavBar = ({ toggleNightMode }) => {
     const [anchorEl, setAnchorEl] = useState(null);
     const [isSearchOpen, setSearchOpen] = useState(false);
     const [isFavoritesOpen, setFavoritesOpen] = useState(false);
@@ -68,7 +68,7 @@ const NavBar = () => {
                 >
                     <MenuIcon sx={{ fontSize: 40, color: 'white' }} />
                 </IconButton>
-                <NavMenu anchorEl={anchorEl} handleMenuClose={handleMenuClose} />
+                <NavMenu anchorEl={anchorEl} handleMenuClose={handleMenuClose} toggleNightMode={toggleNightMode} />
 
                 <div className="logoContainer">
                     <img src={`${process.env.PUBLIC_URL}/rainbow.png`} alt="Rainbow" className="rainbowImage" />
@@ -86,9 +86,9 @@ const NavBar = () => {
                         className="searchInput"
                         sx={{
                             flexGrow: 1,
-                            width: '100%', // Adjust width to take 100% of the available space
+                            width: '100%',
                             maxWidth: 'none',
-                            marginLeft: '10px', // Adding margin to the left
+                            marginLeft: '10px',
                             '& .MuiOutlinedInput-root': {
                                 borderRadius: '50px',
                                 backgroundColor: 'rgba(255, 255, 255, 0.8)',

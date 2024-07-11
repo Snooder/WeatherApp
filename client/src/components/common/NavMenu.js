@@ -7,8 +7,9 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PublicIcon from '@mui/icons-material/Public';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
+import Brightness2Icon from '@mui/icons-material/Brightness2'; // Crescent moon icon
 
-const NavMenu = ({ anchorEl, handleMenuClose }) => {
+const NavMenu = ({ anchorEl, handleMenuClose, toggleNightMode }) => {
     return (
         <Menu
             anchorEl={anchorEl}
@@ -17,7 +18,7 @@ const NavMenu = ({ anchorEl, handleMenuClose }) => {
             onClose={handleMenuClose}
             PaperProps={{
                 style: {
-                    marginTop: '20px', // Move the menu down by 20px
+                    marginTop: '20px',
                 },
             }}
         >
@@ -56,6 +57,12 @@ const NavMenu = ({ anchorEl, handleMenuClose }) => {
                     <VolunteerActivismIcon sx={{ color: 'black' }} />
                 </ListItemIcon>
                 <ListItemText primary="How to Help" />
+            </MenuItem>
+            <MenuItem onClick={() => { toggleNightMode(); handleMenuClose(); }}>
+                <ListItemIcon>
+                    <Brightness2Icon sx={{ color: 'black' }} />
+                </ListItemIcon>
+                <ListItemText primary="Night Mode" />
             </MenuItem>
         </Menu>
     );
