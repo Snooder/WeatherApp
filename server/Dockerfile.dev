@@ -1,12 +1,5 @@
-# FROM node:14.14.0-alpine
-# WORKDIR /app
-# COPY ./package.json ./
-# RUN npm i
-# COPY . .
-# EXPOSE 5000
-# CMD ["npm", "run", "dev" ]
-
-FROM node:14.14.0-alpine
+# Use the official Node.js image.
+FROM node:16.10.0-alpine
 
 # Create and set the working directory.
 WORKDIR /app

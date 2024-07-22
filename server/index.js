@@ -1,79 +1,40 @@
-const keys = require('./keys');
+// server/index.js
+const express = require('express');
+const cors = require('cors');
+const dotenv = require('dotenv');
+const sessionMiddleware = require('./config/sessionConfig');
+const morgan = require('morgan'); // For logging
 
-// Express
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
+dotenv.config(); // Load environment variables
 
 const app = express();
+const port = process.env.PORT || 5000;
+
+// Middleware
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json()); // Replaces bodyParser.json()
+app.use(express.urlencoded({ extended: true })); // Replaces bodyParser.urlencoded()
+app.use(sessionMiddleware);
+app.use(morgan('dev')); // For logging
 
-// Postgres
-const { Pool } = require("pg");
-const pgClient = new Pool({
-    user: keys.pgUser,
-    host: keys.pgHost,
-    database: keys.pgDatabase,
-    password: keys.pgPassword,
-    port: keys.pgPort,
-});
+// Route handlers
+const weatherRoutes = require('./routes/weather');
+const zipCodeRoutes = require('./routes/zipcodes');
 
+app.use('/weather', weatherRoutes);
+app.use('/zipcodes', zipCodeRoutes);
 
-pgClient.on("connect", (client) => {
-    client.query("Create table if not exists zipcodes (zipcode VARCHAR(255))")
-        .catch(err => console.log("PG Error", err))
-})
-
-// Basic Get Routes
+// Root route
 app.get('/', (req, res) => {
-    res.send("Hello world!");
-})
-
-app.get('/zipcodes/all', async (req, res) => {
-    const values = await pgClient.query("Select * from zipcodes");
-    res.send(values)
-})
-
-// Basic Insert Routes
-app.post('/zipcodes', async (req, res) => {
-    if (!req.body.zipCode) {
-        res.send({ working: false });
-        return
-    }
-    pgClient.query("INSERT INTO zipcodes(zipcode) VALUES($1)", [req.body.zipCode], (err, result) => {
-        if (err) {
-            console.error("Error inserting zip code:", err);
-        } else {
-            console.log("Zip code inserted successfully");
-        }
-    });
-    res.send({ working: true });
-})
-
-// Basic Remove Route
-app.post('/deletezip', async (req, res) => {
-    if (!req.body.zipCode) {
-        res.send({ working: false });
-        return;
-    }
-
-    pgClient.query("DELETE FROM zipcodes WHERE zipcode = $1", [req.body.zipCode], (err, result) => {
-        if (err) {
-            console.error("Error deleting zip code:", err);
-            res.send({ working: false });
-        } else {
-            if (result.rowCount === 0) {
-                console.log("Zip code not found:", req.body.zipCode);
-                res.send({ working: false, message: "Zip code not found" });
-            } else {
-                console.log("Zip code deleted successfully:", req.body.zipCode);
-                res.send({ working: true });
-            }
-        }
-    });
+    res.send('Hello world!');
 });
 
-app.listen(5000, err => {
-    console.log("Listening")
-})
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
+
+app.listen(port, () => {
+    console.log(`Listening on port ${port}`);
+});

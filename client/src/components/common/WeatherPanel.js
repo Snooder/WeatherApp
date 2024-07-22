@@ -1,97 +1,95 @@
+// src/components/WeatherPanel.js
 import React, { useEffect, useState } from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
 import './WeatherPanel.css';
 import { styled } from '@mui/system';
+import axios from 'axios';
 
-const useStyles = styled({
-    card: {
-        borderRadius: 15,
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-        padding: 20,
-        width: 400, // Increased width for more content space
-        margin: '20px auto',
-        position: 'relative',
-        backgroundColor: 'rgba(255, 255, 255, 0.8)', // Slight white background with low opacity
-    },
-    title: {
-        fontSize: 20,
-        marginBottom: 15,
-        wordWrap: 'break-word',
-        whiteSpace: 'normal',
-        color: 'black', // Set text color to black for better readability on white background
-    },
-    content: {
-        fontSize: 16,
-        wordWrap: 'break-word',
-        whiteSpace: 'normal',
-        color: 'black', // Set text color to black for better readability on white background
-    },
+const CardStyled = styled(Card)({
+    borderRadius: 15,
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+    padding: 20,
+    width: 400,
+    margin: '20px auto',
+    position: 'relative',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+});
+
+const Title = styled(Typography)({
+    fontSize: 20,
+    marginBottom: 15,
+    wordWrap: 'break-word',
+    whiteSpace: 'normal',
+    color: 'black',
+});
+
+const Content = styled(Typography)({
+    fontSize: 16,
+    wordWrap: 'break-word',
+    whiteSpace: 'normal',
+    color: 'black',
 });
 
 const WeatherPanel = ({ zipCode }) => {
-    const classes = useStyles();
-    const [weatherAPI, setWeatherAPI] = useState({});
+    const [weatherAPI, setWeatherAPI] = useState(null);
     const [loading, setLoading] = useState(true);
-    let isFetchingGlobal = false;
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        let throttleTimer;
-
-        const fetchWeatherDataByZip = async (zipCode) => {
+        const fetchWeatherData = async () => {
             try {
-                isFetchingGlobal = true;
-                console.log('API Key:', process.env.REACT_APP_WEATHER_API_KEY);
-                const response = await fetch(`https://api.tomorrow.io/v4/weather/realtime?location=${zipCode} US&units=imperial&apikey=${process.env.REACT_APP_WEATHER_API_KEY}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch weather data');
+                const response = await axios.get(`/weather/${zipCode}`);
+                console.log('Weather data:', response.data); // Debug: log the response
+
+                if (response.data.length > 0) {
+                    setWeatherAPI(response.data[0]);
+                } else {
+                    setError('No weather data available');
                 }
-                const data = await response.json();
-                setWeatherAPI(data);
+
+                setLoading(false);
             } catch (error) {
                 console.error('Error fetching weather data:', error);
-            } finally {
+                setError('Failed to fetch weather data');
                 setLoading(false);
-                isFetchingGlobal = false;
             }
         };
 
-        if (zipCode && !isFetchingGlobal) {
-            throttleTimer = setTimeout(() => {
-                fetchWeatherDataByZip(zipCode);
-            }, 5000);
+        if (zipCode) {
+            fetchWeatherData();
         }
-
-        return () => {
-            clearTimeout(throttleTimer);
-        };
-    }, [zipCode, isFetchingGlobal]);
+    }, [zipCode]);
 
     if (loading) {
         return <div>Loading...</div>;
     }
 
-    if (!weatherAPI) {
-        return <div>Error fetching weather data on {zipCode}</div>;
+    if (error) {
+        return <div>{error}</div>;
     }
 
-    const weatherLoc = weatherAPI?.location?.name;
-    const temperature = weatherAPI?.data?.values?.temperature;
-    const precipitation = weatherAPI?.data?.values?.precipitationProbability;
+    if (!weatherAPI) {
+        return <div>Error fetching weather data for {zipCode}</div>;
+    }
+
+    const weatherLoc = weatherAPI?.location?.name || 'Unknown location';
+    const temperature = weatherAPI?.data?.values?.temperature || 'N/A';
+    const precipitation = weatherAPI?.data?.values?.precipitationProbability || 'N/A';
 
     return (
-        <Card className={classes.card}>
+        <CardStyled>
             <CardContent>
-                <Typography className={classes.title} color="textSecondary" gutterBottom>
+                <Title color="textSecondary" gutterBottom>
                     {weatherLoc} - {zipCode}
-                </Typography>
-                <Typography className={classes.content} color="textPrimary">
+                </Title>
+                <Content color="textPrimary">
                     Temperature: {temperature}°F
-                </Typography>
-                <Typography className={classes.content} color="textPrimary">
+                </Content>
+                <Content color="textPrimary">
                     Precipitation Probability: {precipitation}%
-                </Typography>
+                </Content>
             </CardContent>
-        </Card>
+        </CardStyled>
     );
 };
 
