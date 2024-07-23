@@ -1,13 +1,21 @@
 {
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "Weather App with Firebase and Express",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "deploy": "firebase deploy --only functions",
+    "client": "cd client && npm start"
+  },
   "dependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.5",
-    "@material-ui/core": "^4.12.4",
-    "@mui/lab": "^5.0.0-alpha.171",
-    "@mui/material": "^5.15.21",
-    "@mui/styles": "^5.15.21",
-    "date-fns": "^3.6.0",
-    "react-globe.gl": "^2.27.2",
-    "three": "^0.166.1"
+    "firebase-admin": "^9.4.2",
+    "firebase-functions": "^3.13.2",
+    "node-fetch": "^2.6.1",
+    "pg": "^8.12.0",
+    "pg-hstore": "^2.3.4",
+    "redis": "^3.0.2",
+    "sequelize": "^6.37.3",
+    "winston": "^3.3.3"
   }
 }
