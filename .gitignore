@@ -1,3 +1,4 @@
-
+config/firebaseConfig.js
+config/serviceAccountKey.json
 client/package-lock.json
 node_modules
